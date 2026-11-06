@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>日常生活擬音 Web Audio DAW 音樂編輯器</title>
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome 圖標 -->
+    <!-- FontAwesome 圖標 CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter -->
+    <!-- Google Fonts Inter & JetBrains Mono -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
@@ -33,11 +33,11 @@
         }
     </script>
     <style>
-        /* 隱藏滾動條但保持滾動 */
+        /* 隱藏滾動條但保持滾動功能 */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* 黑膠旋轉動畫 */
+        /* 黑膠唱片旋轉動畫 */
         @keyframes vinyl-spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -49,7 +49,7 @@
             animation-play-state: paused;
         }
 
-        /* 唱臂擺動過渡 */
+        /* 唱臂擺動過渡動畫 */
         .tonearm {
             transform-origin: 20px 20px;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -58,7 +58,7 @@
             transform: rotate(22deg);
         }
 
-        /* 高亮網格脈衝 */
+        /* 高亮網格發光發散效果 */
         .step-active {
             box-shadow: 0 0 10px rgba(0, 243, 255, 0.6);
         }
@@ -68,7 +68,7 @@
 
     <!-- 頂部主導航區 (Top Header & Global Controls) -->
     <header class="h-14 border-b border-slate-800/80 bg-dark-900/90 px-4 flex items-center justify-between z-30 flex-shrink-0">
-        <!-- Logo 區 -->
+        <!-- Logo 與軟體資訊 -->
         <div class="flex items-center gap-3">
             <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-pink-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
                 <i class="fa-solid fa-compact-disc text-white text-lg"></i>
@@ -76,9 +76,9 @@
             <div>
                 <h1 class="font-bold text-sm tracking-wide text-white flex items-center gap-2">
                     生活聲景 DAW 音樂編輯器
-                    <span class="text-[10px] bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 px-1.5 py-0.5 rounded font-mono">12 音軌</span>
+                    <span class="text-[10px] bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 px-1.5 py-0.5 rounded font-mono">獨立網頁版</span>
                 </h1>
-                <p class="text-[10px] text-slate-400">日常生活音效擬音 + 圖片 AI 音樂生成</p>
+                <p class="text-[10px] text-slate-400">12 軌日常生活擬音 + 視覺圖片聲景生成</p>
             </div>
         </div>
 
@@ -129,7 +129,7 @@
     <!-- 主編輯區域：左控制欄 + 中間滑動網格 + 右側黑膠盤 -->
     <div class="flex-1 flex overflow-hidden relative">
         
-        <!-- 背景圖片容器 -->
+        <!-- 動態背景圖片容器 -->
         <div id="bg-canvas-container" class="absolute inset-0 z-0 opacity-10 pointer-events-none transition-all duration-700 bg-cover bg-center filter blur-xl"></div>
 
         <!-- 左側固定：樂器控制區 (Track Headers) -->
@@ -182,7 +182,7 @@
                     <div class="w-3 h-3 rounded-full bg-dark-950 border border-slate-600 absolute z-10"></div>
                 </div>
 
-                <!-- 唱臂 Tonearm (調整優化後的離盤視角) -->
+                <!-- 唱臂 Tonearm -->
                 <div class="absolute -top-3 -right-2 w-20 h-28 pointer-events-none z-20">
                     <svg id="tonearm-svg" class="w-full h-full tonearm" viewBox="0 0 80 100">
                         <!-- 基座 -->
@@ -196,10 +196,10 @@
                 </div>
             </div>
 
-            <!-- 狀態提示 -->
+            <!-- 狀態提示區 -->
             <div class="w-full bg-dark-850 rounded-lg p-2.5 border border-slate-800 text-center">
                 <div id="vinyl-status" class="text-[10px] text-slate-500 font-mono">PAUSED</div>
-                <div class="text-[11px] text-slate-300 font-bold truncate mt-0.5">即時模擬聲景聲學</div>
+                <div class="text-[11px] text-slate-300 font-bold truncate mt-0.5">即時聲學模擬發聲</div>
             </div>
         </div>
 
@@ -214,17 +214,17 @@
             <h2 class="text-base font-bold text-white mb-1 flex items-center gap-2">
                 <i class="fa-solid fa-wand-magic-sparkles text-pink-500"></i> 圖片配樂分析生成
             </h2>
-            <p class="text-xs text-slate-400 mb-4">上傳任何照片，系統將分析色彩與氛圍，為圖片配上專屬的生活聲景樂曲。</p>
+            <p class="text-xs text-slate-400 mb-4">上傳照片，系統將自動提取色彩氛圍並編排專屬生活聲景樂曲。</p>
 
             <div id="drop-area" class="border-2 border-dashed border-slate-700 hover:border-cyan-400 rounded-xl p-6 text-center cursor-pointer transition-all bg-dark-850/50">
                 <i class="fa-solid fa-cloud-arrow-up text-3xl text-cyan-400 mb-2"></i>
                 <p class="text-xs font-bold text-slate-200">點擊上傳或拖放照片至此區域</p>
-                <p class="text-[10px] text-slate-500 mt-1">支援 JPG, PNG, WEBP 等圖片格式</p>
+                <p class="text-[10px] text-slate-500 mt-1">支援 JPG, PNG, WEBP 圖片格式</p>
                 <input type="file" id="photo-input" accept="image/*" class="hidden">
             </div>
 
             <div id="photo-preview-container" class="mt-4 flex items-center gap-3 hidden">
-                <img id="photo-preview" class="w-14 h-14 rounded-lg object-cover border border-slate-700">
+                <img id="photo-preview" class="w-14 h-14 rounded-lg object-cover border border-slate-700" alt="預覽圖">
                 <div class="overflow-hidden">
                     <p id="photo-filename" class="text-xs font-bold text-slate-200 truncate"></p>
                     <span class="text-[10px] text-cyan-400">已成功載入圖片</span>
@@ -237,9 +237,9 @@
         </div>
     </div>
 
-    <!-- JS 邏輯處理 -->
+    <!-- JS 主程式邏輯 -->
     <script>
-        // 日常生活樂器音效配置 (12 軌生活擬音音效)
+        // 日常生活樂器音效配置 (12 軌擬音音效)
         const TRACK_CONFIGS = [
             { id: 'glass', name: '🍸 玻璃碰撞', color: '#00f3ff', pitchIdx: 7 },
             { id: 'door', name: '🚪 關門重音', color: '#ff007f', pitchIdx: 0 },
@@ -255,7 +255,7 @@
             { id: 'keyboard', name: '⌨️ 鍵盤打字', color: '#10b981', pitchIdx: 6 }
         ];
 
-        // 調性音階表 (全對應 12 軌 Pitch)
+        // 調性音階對照表
         const SCALES = {
             major: [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25, 587.33, 659.25, 698.46, 783.99],
             minor: [261.63, 293.66, 311.13, 349.23, 392.00, 415.30, 466.16, 523.25, 587.33, 622.25, 698.46, 783.99],
@@ -266,7 +266,7 @@
             locrian: [261.63, 277.18, 311.13, 349.23, 369.99, 415.30, 466.16, 523.25, 554.37, 622.25, 698.46, 739.99]
         };
 
-        // 全域 DAW 狀態
+        // 全域 DAW 狀態變數
         let currentScale = 'pentatonic';
         let audioCtx = null;
         let bpm = 110;
@@ -275,7 +275,7 @@
         let timerId = null;
         const totalSteps = 64;
 
-        // 12 軌 x 64 步 二維矩陣
+        // 12 軌 x 64 步 音符陣列
         let gridData = Array(12).fill(null).map(() => Array(totalSteps).fill(false));
         let trackMutes = Array(12).fill(false);
         let trackSolos = Array(12).fill(false);
@@ -283,14 +283,17 @@
 
         let uploadedImageBase64 = null;
 
-        // 初始化 Web Audio API
+        // 初始化 AudioContext（響應瀏覽器音訊安全政策）
         function initAudio() {
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
         }
 
-        // Web Audio 合成日常生活常見音效 (已整體調降音量)
+        // Web Audio 原生合成 12 種日常生活擬音
         function playSound(trackIdx) {
             if (!audioCtx) return;
             if (trackMutes[trackIdx]) return;
@@ -299,7 +302,7 @@
             if (anySolo && !trackSolos[trackIdx]) return;
 
             const now = audioCtx.currentTime;
-            const volume = trackVolumes[trackIdx] * 0.7; // 整體輸出音量調降
+            const volume = trackVolumes[trackIdx] * 0.45; 
             const cfg = TRACK_CONFIGS[trackIdx];
 
             const scaleFreqs = SCALES[currentScale] || SCALES.pentatonic;
@@ -316,7 +319,7 @@
                     oscG.type = 'sine';
                     oscG.frequency.setValueAtTime(basePitch * 1.6, now);
                     oscG.frequency.exponentialRampToValueAtTime(basePitch * 2.8, now + 0.1);
-                    gainG.gain.setValueAtTime(0.8 * volume, now);
+                    gainG.gain.setValueAtTime(0.8, now);
                     gainG.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
                     oscG.connect(gainG);
                     gainG.connect(masterGain);
@@ -324,13 +327,13 @@
                     oscG.stop(now + 0.5);
                     break;
 
-                case 'door': // 🚪 关門聲
+                case 'door': // 🚪 關門聲
                     const oscD = audioCtx.createOscillator();
                     const gainD = audioCtx.createGain();
                     oscD.type = 'triangle';
                     oscD.frequency.setValueAtTime(basePitch * 0.45, now);
                     oscD.frequency.exponentialRampToValueAtTime(35, now + 0.2);
-                    gainD.gain.setValueAtTime(0.9 * volume, now);
+                    gainD.gain.setValueAtTime(0.9, now);
                     gainD.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
                     oscD.connect(gainD);
                     gainD.connect(masterGain);
@@ -350,7 +353,7 @@
                     filterK.frequency.setValueAtTime(basePitch * 3.6, now);
                     filterK.Q.setValueAtTime(4.5, now);
                     const gainK = audioCtx.createGain();
-                    gainK.gain.setValueAtTime(0.8 * volume, now);
+                    gainK.gain.setValueAtTime(0.8, now);
                     gainK.gain.exponentialRampToValueAtTime(0.01, now + 0.14);
                     noiseK.connect(filterK);
                     filterK.connect(gainK);
@@ -364,7 +367,7 @@
                     oscF.type = 'sine';
                     oscF.frequency.setValueAtTime(basePitch * 0.9, now);
                     oscF.frequency.exponentialRampToValueAtTime(65, now + 0.1);
-                    gainF.gain.setValueAtTime(0.8 * volume, now);
+                    gainF.gain.setValueAtTime(0.8, now);
                     gainF.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
                     oscF.connect(gainF);
                     gainF.connect(masterGain);
@@ -372,13 +375,13 @@
                     oscF.stop(now + 0.12);
                     break;
 
-                case 'water': // 💧 滴水清響
+                case 'water': // 💧 滴水聲
                     const oscW = audioCtx.createOscillator();
                     const gainW = audioCtx.createGain();
                     oscW.type = 'sine';
                     oscW.frequency.setValueAtTime(basePitch * 1.3, now);
                     oscW.frequency.exponentialRampToValueAtTime(basePitch * 3.0, now + 0.08);
-                    gainW.gain.setValueAtTime(0.9 * volume, now);
+                    gainW.gain.setValueAtTime(0.9, now);
                     gainW.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
                     oscW.connect(gainW);
                     gainW.connect(masterGain);
@@ -397,7 +400,7 @@
                     filtFl.type = 'lowpass';
                     filtFl.frequency.setValueAtTime(basePitch * 1.8, now);
                     const gainFl = audioCtx.createGain();
-                    gainFl.gain.setValueAtTime(0.6 * volume, now);
+                    gainFl.gain.setValueAtTime(0.6, now);
                     gainFl.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
                     srcFl.connect(filtFl);
                     filtFl.connect(gainFl);
@@ -405,7 +408,7 @@
                     srcFl.start(now);
                     break;
 
-                case 'clap': // 👏 拍手擊掌聲
+                case 'clap': // 👏 拍手聲
                     const bufLenC = audioCtx.sampleRate * 0.15;
                     const bufC = audioCtx.createBuffer(1, bufLenC, audioCtx.sampleRate);
                     const dC = bufC.getChannelData(0);
@@ -416,7 +419,7 @@
                     filtC.type = 'bandpass';
                     filtC.frequency.setValueAtTime(basePitch * 2.5, now);
                     const gainC = audioCtx.createGain();
-                    gainC.gain.setValueAtTime(0.8 * volume, now);
+                    gainC.gain.setValueAtTime(0.8, now);
                     gainC.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
                     srcC.connect(filtC);
                     filtC.connect(gainC);
@@ -430,7 +433,7 @@
                     oscB.type = 'sine';
                     oscB.frequency.setValueAtTime(basePitch * 1.2, now);
                     oscB.frequency.setValueAtTime(basePitch * 0.95, now + 0.14);
-                    gainB.gain.setValueAtTime(0.7 * volume, now);
+                    gainB.gain.setValueAtTime(0.7, now);
                     gainB.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
                     oscB.connect(gainB);
                     gainB.connect(masterGain);
@@ -450,7 +453,7 @@
                     fP.frequency.setValueAtTime(1300, now);
                     fP.frequency.exponentialRampToValueAtTime(basePitch * 3.2, now + 0.11);
                     const gP = audioCtx.createGain();
-                    gP.gain.setValueAtTime(0.7 * volume, now);
+                    gP.gain.setValueAtTime(0.7, now);
                     gP.gain.exponentialRampToValueAtTime(0.01, now + 0.14);
                     sP.connect(fP);
                     fP.connect(gP);
@@ -458,13 +461,13 @@
                     sP.start(now);
                     break;
 
-                case 'cork': // 🍾 軟木塞拔開 Pop 聲
+                case 'cork': // 🍾 軟木塞 Pop 聲
                     const oscCk = audioCtx.createOscillator();
                     const gainCk = audioCtx.createGain();
                     oscCk.type = 'sine';
                     oscCk.frequency.setValueAtTime(130, now);
                     oscCk.frequency.exponentialRampToValueAtTime(basePitch * 2.4, now + 0.05);
-                    gainCk.gain.setValueAtTime(0.9 * volume, now);
+                    gainCk.gain.setValueAtTime(0.9, now);
                     gainCk.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
                     oscCk.connect(gainCk);
                     gainCk.connect(masterGain);
@@ -480,7 +483,7 @@
                     oscCn2.type = 'sine';
                     oscCn1.frequency.setValueAtTime(basePitch * 2.9, now);
                     oscCn2.frequency.setValueAtTime(basePitch * 3.5, now);
-                    gainCn.gain.setValueAtTime(0.7 * volume, now);
+                    gainCn.gain.setValueAtTime(0.7, now);
                     gainCn.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
                     oscCn1.connect(gainCn);
                     oscCn2.connect(gainCn);
@@ -497,7 +500,7 @@
                     oscKb.type = 'square';
                     oscKb.frequency.setValueAtTime(basePitch * 1.9, now);
                     oscKb.frequency.exponentialRampToValueAtTime(220, now + 0.03);
-                    gainKb.gain.setValueAtTime(0.7 * volume, now);
+                    gainKb.gain.setValueAtTime(0.7, now);
                     gainKb.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
                     oscKb.connect(gainKb);
                     gainKb.connect(masterGain);
@@ -507,7 +510,7 @@
             }
         }
 
-        // 初始化介面與 DOM 參考
+        // 初始化介面與 DOM 參考（解決所有潛在 null 參考問題）
         function initDOMReferences() {
             const trackHeadersContainer = document.getElementById('track-headers-container');
             const timelineRuler = document.getElementById('timeline-ruler');
@@ -573,7 +576,7 @@
                 tracksGridContainer.appendChild(row);
             });
 
-            // 安全綁定主控制按鈕
+            // 控制控制面板事件
             const btnPlay = document.getElementById('btn-play');
             if (btnPlay) btnPlay.onclick = togglePlay;
 
@@ -589,7 +592,7 @@
             const btnRandomAll = document.getElementById('btn-random-all');
             if (btnRandomAll) btnRandomAll.onclick = () => generateRandomPattern();
 
-            // Modal 安全綁定
+            // Modal 彈窗控制
             const btnOpenPhotoModal = document.getElementById('btn-open-photo-modal');
             const photoModal = document.getElementById('photo-modal');
             const btnCloseModal = document.getElementById('btn-close-modal');
@@ -601,7 +604,7 @@
                 btnCloseModal.onclick = () => photoModal.classList.add('hidden');
             }
             
-            // 圖片上傳安全綁定
+            // 圖片上傳控制
             const dropArea = document.getElementById('drop-area');
             const photoInput = document.getElementById('photo-input');
             if (dropArea && photoInput) {
@@ -613,7 +616,7 @@
             if (btnAnalyzeGenerate) btnAnalyzeGenerate.onclick = runPhotoMusicGeneration;
         }
 
-        // 切換步數音符
+        // 切換步數音符狀態
         function toggleCell(trackIdx, step) {
             initAudio();
             gridData[trackIdx][step] = !gridData[trackIdx][step];
@@ -641,7 +644,7 @@
             }
         }
 
-        // 靜音與獨奏
+        // Mute / Solo 控制
         function toggleMute(idx) {
             trackMutes[idx] = !trackMutes[idx];
             document.getElementById(`btn-mute-${idx}`).className = `w-5 h-5 rounded text-[10px] font-bold ${trackMutes[idx] ? 'bg-red-500 text-white' : 'bg-slate-800 text-slate-400'}`;
@@ -652,7 +655,7 @@
             document.getElementById(`btn-solo-${idx}`).className = `w-5 h-5 rounded text-[10px] font-bold ${trackSolos[idx] ? 'bg-amber-500 text-dark-950' : 'bg-slate-800 text-slate-400'}`;
         }
 
-        // 播放與控制
+        // 播放與停止邏輯
         function togglePlay() {
             initAudio();
             if (isPlaying) {
@@ -709,11 +712,10 @@
             playhead.style.left = `${leftOffset}px`;
         }
 
-        // 隨機音樂風格生成器 (具備豐富打擊樂律動與動態變化)
+        // 音樂風格與隨機樂律生成算法
         function generateRandomPattern() {
             gridData = Array(12).fill(null).map(() => Array(totalSteps).fill(false));
 
-            // 隨機風格律動
             const styleType = Math.floor(Math.random() * 4); 
 
             for (let s = 0; s < totalSteps; s++) {
@@ -721,28 +723,27 @@
                 const isOffBeat = s % 2 === 1;
                 const isSixteenth = s % 1 === 0;
 
-                // 節奏骨幹：關門重音與拍手擊掌
                 if (isDownBeat) {
-                    if (s % 8 === 0) gridData[1][s] = true; // 關門
-                    if (s % 8 === 4) gridData[6][s] = true; // 拍手
+                    if (s % 8 === 0) gridData[1][s] = true; // 關門重音
+                    if (s % 8 === 4) gridData[6][s] = true; // 拍手擊掌
                 }
 
-                if (styleType === 0) { // 輕快 Groove
-                    if (isOffBeat && Math.random() < 0.6) gridData[2][s] = true;  // 鑰匙
-                    if (s % 4 === 2 && Math.random() < 0.7) gridData[3][s] = true; // 鞋跟
-                    if (Math.random() < 0.18) gridData[10][s] = true;             // 硬幣
-                    if (Math.random() < 0.15) gridData[11][s] = true;             // 鍵盤
-                } else if (styleType === 1) { // 靈幻聲景
-                    if (Math.random() < 0.18) gridData[4][s] = true;              // 滴水
-                    if (Math.random() < 0.12) gridData[0][s] = true;              // 玻璃
-                    if (Math.random() < 0.1) gridData[7][s] = true;               // 門鈴
-                    if (Math.random() < 0.2) gridData[8][s] = true;               // 紙張
-                } else if (styleType === 2) { // 疾走打擊
-                    if (isSixteenth && Math.random() < 0.35) gridData[9][s] = true;// 軟木塞
-                    if (isOffBeat && Math.random() < 0.4) gridData[11][s] = true;  // 鍵盤
-                    if (s % 8 === 2 || s % 8 === 6) gridData[3][s] = Math.random() < 0.8; // 鞋跟
-                    if (Math.random() < 0.2) gridData[10][s] = true;              // 硬幣
-                } else { // 隨機驚喜
+                if (styleType === 0) {
+                    if (isOffBeat && Math.random() < 0.6) gridData[2][s] = true;  
+                    if (s % 4 === 2 && Math.random() < 0.7) gridData[3][s] = true; 
+                    if (Math.random() < 0.18) gridData[10][s] = true;             
+                    if (Math.random() < 0.15) gridData[11][s] = true;             
+                } else if (styleType === 1) {
+                    if (Math.random() < 0.18) gridData[4][s] = true;              
+                    if (Math.random() < 0.12) gridData[0][s] = true;              
+                    if (Math.random() < 0.1) gridData[7][s] = true;               
+                    if (Math.random() < 0.2) gridData[8][s] = true;               
+                } else if (styleType === 2) {
+                    if (isSixteenth && Math.random() < 0.35) gridData[9][s] = true;
+                    if (isOffBeat && Math.random() < 0.4) gridData[11][s] = true;  
+                    if (s % 8 === 2 || s % 8 === 6) gridData[3][s] = Math.random() < 0.8; 
+                    if (Math.random() < 0.2) gridData[10][s] = true;              
+                } else {
                     for (let t = 0; t < 12; t++) {
                         const prob = (t === 1 || t === 6) ? 0.2 : 0.1;
                         if (Math.random() < prob) gridData[t][s] = true;
@@ -750,7 +751,6 @@
                 }
             }
 
-            // 更新音符網格 UI
             for (let t = 0; t < 12; t++) {
                 for (let s = 0; s < totalSteps; s++) {
                     updateCellUI(t, s);
@@ -770,7 +770,6 @@
                 document.getElementById('photo-filename').innerText = file.name;
                 document.getElementById('photo-preview-container').classList.remove('hidden');
                 
-                // 設定黑膠封面與背景圖
                 document.getElementById('vinyl-cover').style.backgroundImage = `url(${uploadedImageBase64})`;
                 document.getElementById('bg-canvas-container').style.backgroundImage = `url(${uploadedImageBase64})`;
             };
@@ -785,7 +784,7 @@
             if (!isPlaying) togglePlay();
         }
 
-        // DOM 初始化綁定
+        // DOM 載入完畢後進行初始化
         window.addEventListener('DOMContentLoaded', () => {
             initDOMReferences();
         });
