@@ -4,12 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/6/w3.css">
-<body class="w3-container">
+<style>
+  .album-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+  }
+  @media (max-width: 900px) {
+    .album-grid {
+      grid-template-columns: repeat(2, 1fr); 
+     }
+  }
+  @media (max-width: 550px) {
+    .album-grid {
+      grid-template-columns: 1fr;
+     }
+  }
+</style>
+<body class="w3-container w3-light-grey" style="padding-top:24px; padding-bottom:32px;">
 
 <h1>我的相簿</h1>
 <p>記錄下我的世界</p>
 
-<div class="w3-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
+<div class="album-grid">
 
 <div class="w3-container w3-card">
     <h2>靜物篇-攝影棚</h2>
@@ -37,6 +54,13 @@
   <p>顯現在光影交會之間</p>
   <img src="https://lh3.googleusercontent.com/pw/AP1GczOsmb7YOUex_46_Ivq0Ao3_snqZiltUkEqBiQGyTHA_GZEuhIUYWJChn24KpNamyhP8DWVVQAYXUAzsyYEXM7lZ9e3JHuLIe2LKpMhq3e1jdBKcloQZtAI410-vJK1zX7MEV87i3eIwJaCd5dDfNofd0Q=w958-h639-s-no-gm?authuser=0"style="width:100%">
   <p><button style="background-image: url('https://png.pngtree.com/png-clipart/20240417/original/pngtree-vector-watercolor-paint-banner-png-image_14871106.png'); background-size: cover; background-position: center; border: none; width: 100%; padding: 18px; color: white; font-size: 16px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); cursor: pointer; border-radius: 4px;"onclick="window.open('https://photos.app.goo.gl/YHY1iFb8DMXscbK86', '_blank')">進入光的視線</button></p>
+</div>
+
+<div class="w3-container w3-card">
+  <h2>外拍篇-台南總圖</h2>
+  <p>漂流在書香知識之海</p>
+  <img src="https://lh3.googleusercontent.com/pw/AP1GczPeHij77Msor5_isRUme_CT6pvoV1LfYhJZBa6kBXKWngctQMPbWlRAkRm12HJyIiPYi39tXqzY68245JA2IdE1uNcw38QAWrgUf8SHH9yhsf9jxpMEjqS8aEwzbI92478-iPQQk-dn3HW__SCRpx4Y6w=w1215-h810-s-no-gm?authuser=0"style="width:100%">
+  <p><button style="background-image: url('https://png.pngtree.com/png-clipart/20240417/original/pngtree-vector-watercolor-paint-banner-png-image_14871106.png'); background-size: cover; background-position: center; border: none; width: 100%; padding: 18px; color: white; font-size: 16px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); cursor: pointer; border-radius: 4px;"onclick="window.open('https://photos.app.goo.gl/mTqKnKULW3FWBsyG7', '_blank')">進入書的扉頁</button></p>
 </div>
 
 </div>
