@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>我的攝影視界｜策展式一頁網站</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/6/w3.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      /* 換成你的背景圖片網址 */
+      background-image: url('https://lh3.googleusercontent.com/pw/AP1GczOBy8iLjS9pAGd49AMSbYwOgXYa9TFEY_zmqGnOA0pSymVtW0sf1CGu0iFnf_n3Q-urfZWu0x1KYxBCRY1A6E0uxOuUusW8xrWirR4lTUSTq5XdRAZ8VTR8Ol1F31MIwsRNM-x5jDD-f1tJyu5mvV9g1g=w1215-h911-s-no-gm?authuser=0');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    /* 背景微暗遮罩，讓主副標題與照片更有質感 */
+    .page-overlay {
+      min-height: 100vh;
+      background: rgba(15, 18, 22, 0.58);
+      padding: 56px 24px 80px;
+      overflow-x: hidden; /* 避免大字體超出螢幕產生橫向捲軸 */
+    }
+
+    .content-wrapper {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* 主標題與副標題 */
+    .hero-header {
+      text-align: center;
+      color: #ffffff;
+      padding: 44px 24px;
+      margin-bottom: 72px;
+      background: rgba(0, 0, 0, 0.38);
+      border-radius: 12px;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-header h1 {
+      margin: 0 0 12px;
+      font-size: 2.6rem;
+      letter-spacing: 3px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero-header p {
+      margin: 0;
+      font-size: 1.15rem;
+      color: #eaeaea;
+      letter-spacing: 1px;
+    }
+
+    /* 垂直單欄＋左右交錯容器 */
+    .staggered-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+
+    /* 照片外框：設定 relative 作為文字定位基準，並拿掉白底 */
+    .photo-card {
+      position: relative;
+      width: 65%;
+      background: transparent;
+      transition: transform 0.3s ease;
+    }
+
+    .photo-card:hover {
+      transform: translateY(-5px);
+    }
+
+    /* 奇數張靠左、偶數張靠右 */
+    .photo-card:nth-child(odd) {
+      align-self: flex-start;
+    }
+
+    .photo-card:nth-child(even) {
+      align-self: flex-end;
+    }
+
+    /* 圖片本體：z-index 設為 2，蓋在文字上方 */
+    .photo-card img {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+    }
+
+    /* 兩字大標題標註：z-index 設為 1，自然被圖片遮住一小部分 */
+    .side-tag {
+      position: absolute;
+      z-index: 1;
+      bottom: 0;
+      transform: none;
+      font-size: 8rem; /* 大字體，可依需求調成 4.5rem ~ 7rem */
+      font-weight: 900; /* 最粗體 */
+      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: 6px;
+      line-height: 1.1;
+      user-select: none;
+      pointer-events: none;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+      white-space: nowrap;
+    }
+
+    /* 圖片靠左（奇數）時，文字放右側，並往左伸進圖片底下 32px */
+    .photo-card:nth-child(odd) .side-tag {
+      left: calc(100% - 16px);
+    }
+
+    /* 圖片靠右（偶數）時，文字放左側，並往右伸進圖片底下 32px */
+    .photo-card:nth-child(even) .side-tag {
+      right: calc(100% - 16px);
+    }
+
+    /* 手機版螢幕較窄時的自適應調整 */
+    @media (max-width: 700px) {
+      .photo-card {
+        width: 85%;
+      }
+      .side-tag {
+        font-size: 3.2rem;
+        top: auto;
+        bottom: -22px;
+        transform: none;
+      }
+      .photo-card:nth-child(odd) .side-tag {
+        left: auto;
+        right: 8px;
+      }
+      .photo-card:nth-child(even) .side-tag {
+        right: auto;
+        left: 8px;
+      }
+      .staggered-gallery {
+        gap: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-overlay">
+    <div class="content-wrapper">
+
+      <!-- 主標題與副標題 -->
+      <header class="hero-header">
+        <h1>台南總圖</h1>
+        <p>4B2K0913莊秀太-數大便是美的攝影集</p>
+      </header>
+
+      <!-- 一張一張往下排，自動左右錯開 -->
+      <section class="staggered-gallery">
+
+        <!-- 第 1 張（自動靠左） -->
+        <div class="photo-card">
+          <img src="https://lh3.googleusercontent.com/pw/AP1GczPs62VhBP-3mkXB2uR4-LGBy5IvIp6j-lpWfZjV81QmCpkAeZk4X40IhrgIW-ZAN0MYSGCM0bmoZNlUSK9TMWTiQFvLuu02Epaiefg1lPV5M5AKjDMHRqvSIyFbr1Z8SE7SL9OJi8YWjWXf-mitRpJjuA=w1215-h911-s-no-gm?authuser=0" alt="照片 1">
+          <span class="side-tag">螺旋<br>階梯</span>
+          <div class="photo-caption">
+          </div>
+        </div>
+
+        <!-- 第 2 張（自動靠右） -->
+        <div class="photo-card">
+          <img src="https://lh3.googleusercontent.com/pw/AP1GczN1MxcKfnkIDdUKvtYdGv92KEM7PfgPupz7g-0VzNzVSV-wNhvTZ2rp58aRpQeNT_LIyNqTpWVj1owZ0sHtIA4g3dR5aqGJfg36ZnZWu_Z2bQM3m8MueosC9JIGAkJEG87PFaqPdVt303XGIylLSID8sg=w1215-h911-s-no-gm?authuser=0" alt="照片 2">
+          <span class="side-tag">圓形<br>頂燈</span>
+          <div class="photo-caption">
+          </div>
+        </div>
+
+        <!-- 第 3 張（自動靠左） -->
+        <div class="photo-card">
+          <img src="https://lh3.googleusercontent.com/pw/AP1GczPeHij77Msor5_isRUme_CT6pvoV1LfYhJZBa6kBXKWngctQMPbWlRAkRm12HJyIiPYi39tXqzY68245JA2IdE1uNcw38QAWrgUf8SHH9yhsf9jxpMEjqS8aEwzbI92478-iPQQk-dn3HW__SCRpx4Y6w=w1215-h810-s-no-gm?authuser=0" alt="照片 3">
+          <span class="side-tag">書架<br>之間</span>
+          <div class="photo-caption">
+          </div>
+        </div>
+
+        <!-- 第 4 張（自動靠右） -->
+        <div class="photo-card">
+          <img src="https://lh3.googleusercontent.com/pw/AP1GczMKwiZQTOo8W_Z2Vx1y-prGwgAF38TVpWK8yJbeHMd2rtWQluYt9UYHz1655YqaIVxZS3AYvnATlACq-czDNYIPOYJ2LKceDDVbXrxWLzRCtMd_ZutyCM0Vgj8l0oVrk1ONZ1jiMxXhjq7YvgctDHYlgA=w1215-h911-s-no-gm?authuser=0" alt="照片 4">
+          <span class="side-tag">弧形<br>叢書</span>
+          <div class="photo-caption">
+          </div>
+        </div>
+
+        <!-- 第 5 張（自動靠左） -->
+        <div class="photo-card">
+          <img src="https://lh3.googleusercontent.com/pw/AP1GczPojMk63t6jGekgwKVtzDg9Mo1l8FQ0D3JwE4i_NlA15PPzwQIyFyNh9m3bXIV2qTdqhp1jvy9OeXxNicaUxtrz-tnlFxUzZbDmALFhiVDK9uBGE6XXR4tbWDwX2Q5cziwAy3Xzdn2SqvFf6EN1-Je54w=w1215-h911-s-no-gm?authuser=0" alt="照片 5">
+          <span class="side-tag">縱行<br>叢書</span>
+          <div class="photo-caption">
+          </div>
+        </div>
+
+        <!-- 第 6 張（自動靠右） -->
+        <div class="photo-card">
+          <img src="https://lh3.googleusercontent.com/pw/AP1GczOmqQ1kah3ok0UKw87rv1oO44ycrJhU8fPNE8uJ45zYl_bwe9-U3IH7B52cdr0PFnvU3Qsqyus0lDfyxGIrog-XoZ4IAylTakhn7H7qUzOKDeG3jrPG-1vCQipfZaTvW5bH6xtiqlKc7rxF1YBGstNJSQ=w1215-h911-s-no-gm?authuser=0" alt="照片 6">
+          <span class="side-tag">飄散<br>書頁</span>
+          <div class="photo-caption">
+          </div>
+        </div>
+
+       <!-- 第 7 張（自動靠左） -->
+        <div class="photo-card">
+          <img src="https://lh3.googleusercontent.com/pw/AP1GczMuZp8JyOK_CtE4si-RomOQXLRsgd0du05kioAAhyDVPJn6GKlU8BZ92JFQOCn1KkyBkkeiRwMyTjn9sjZ36BTiRPehues19d3oVPhy655WSYOaTaAXGK2d4yW7gpfsCVSHKYtPCSVVLoSyipxXvh9CfQ=w1215-h911-s-no-gm?authuser=0" alt="照片 7">
+          <span class="side-tag">散形<br>叢書</span>
+          <div class="photo-caption">
+          </div>
+        </div>
+
+       <!-- 第 8 張（自動靠右） -->
+        <div class="photo-card">
+          <img src="https://lh3.googleusercontent.com/pw/AP1GczMdIef9JRj49Xpyqo_7ye5n-R5ckZVy4_pZqnhMo5YwECggp00DG2ya46y4w3PStmr9g8l9lTNuc2zHu3i2VnUHXxTVUDXMaNbrEmnXbx02jnaqPgkyaAXjOVDpecs7VXrDRQiYMP0Ldb7aGOxOd67ecQ=w1215-h911-s-no-gm?authuser=0" alt="照片 8">
+          <span class="side-tag">層遞<br>延伸</span>
+          <div class="photo-caption">
+          </div>
+        </div>
+
+       <!-- 第 9 張（自動靠左） -->
+        <div class="photo-card">
+          <img src="https://lh3.googleusercontent.com/pw/AP1GczOp_FVnVSlY6Jn6cZaRT9rhKgl0r86tND7_c8h6iDNy9xoAsixGU1lqj9zbLFA-tOlWmQbF1ST59jJIPIOxJgBuBqt0eLZg_1gtHWEGzrhMzSMaclWn6w66Qhm4T0d02cS5ZeAakyGPTjiAT7BN9naXzQ=w1215-h911-s-no-gm?authuser=0" alt="照片 9">
+          <span class="side-tag">繪圖<br>遊玩</span>
+          <div class="photo-caption">
+          </div>
+        </div>
+
+       <!-- 第 10 張（自動靠右） -->
+        <div class="photo-card">
+          <img src="https://lh3.googleusercontent.com/pw/AP1GczNUIOnXwtAGaKChSbwKbp0amBhUuuUlivYBQKPzIdPSnrMtTlYPiZXh0XMqYWvVPlFqkUS9J5v-OyAhpSMMGfqFzlkJQChezw0f3ovmntMD87-rWrhTITUmLXfRPty5bfyvAb9QJWHE81QSqaydQf82aQ=w1215-h911-s-no-gm?authuser=0" alt="照片 10">
+          <span class="side-tag">互動<br>裝置</span>
+          <div class="photo-caption">
+          </div>
+        </div>
+
+      <!-- 第 11 張（自動靠左） -->
+        <div class="photo-card">
+          <img src="https://lh3.googleusercontent.com/pw/AP1GczM6svffhq-S_GZMutrjWFq59L9TIL63HeaAyFgguPW4kQRUEaImbz5-RdCLlg-F23HcG9frO4aMuu1HT6C1-e03Cm3znZf4xgzVsFkDdJ5MF3ybuP-mTQ5vm5Rfd88HUf3kWyWpnVcuaZHpt1fBUzTI5Q=w1215-h911-s-no-gm?authuser=0" alt="照片 11">
+          <span class="side-tag">沉浸<br>閱讀</span>
+          <div class="photo-caption">
+          </div>
+        </div>
+
+
+      </section>
+
+    </div>
+  </div>
+
+</body>
+</html>
